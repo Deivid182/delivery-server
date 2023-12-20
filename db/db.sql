@@ -1,0 +1,17 @@
+
+CREATE DATABASE IF NOT EXISTS DELIVERY;
+
+USE DELIVERY;
+
+CREATE TABLE users(
+    -> id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    -> email VARCHAR(60) NOT NULL UNIQUE,
+    -> first_name VARCHAR(60) NOT NULL,
+    -> last_name VARCHAR(60) NOT NULL,
+    -> phone VARCHAR(60) NOT NULL,
+    -> image VARCHAR(255) NULL,
+    -> password VARCHAR(60) NOT NULL,
+    -> created_at TIMESTAMP(0) NOT NULL,
+    -> updated_at TIMESTAMP(0) NOT NULL);
+
+DESCRIBE users;

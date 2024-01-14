@@ -9,11 +9,11 @@ CREATE TABLE `delivery`.`users`(
     `lastName` VARCHAR(50) NOT NULL,
     `phone` VARCHAR(50) NOT NULL,
     `image` VARCHAR(255) NULL,
-    `password` VARCHAR(50) NOT NULL,
+    `password` VARCHAR(90) NOT NULL,
     `createdAt` TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NOT NULL,
     `updatedAt` TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP NOT NULL,
     PRIMARY KEY(`id`)
-) ENGINE = InnoDB
+)
 
 DESCRIBE users;
 

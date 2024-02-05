@@ -59,10 +59,11 @@ export const login = async (
     res.status(200).json({
       data: {
         id: user[0].id,
-        name: user[0].firstName,
+        firstName: user[0].firstName,
         lastName: user[0].lastName,
         email: user[0].email,
         phone: user[0].phone,
+        image: user[0].image,
         roles: user[0].roles,
         token,
       },

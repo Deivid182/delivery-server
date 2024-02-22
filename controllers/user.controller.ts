@@ -5,7 +5,7 @@ import { MysqlErrorKeys } from "mysql-error-keys";
 import { FieldPacket, ResultSetHeader, RowDataPacket } from "mysql2";
 import keys from "../config/keys";
 import { pool } from "../db";
-import { CreateUserInput, LoginInput } from "../schemas/user.schema";
+import { CreateUserInput, LoginInput, UpdateUserInput } from "../schemas/user.schema";
 import { getUserByEmail, getUserById } from "../services/user.service";
 
 export const login = async (
@@ -126,3 +126,61 @@ export const register = async (
     }
   }
 };
+
+export const updateUser = async (req: Request<{ id: string }, {}, UpdateUserInput>, res: Response) => {
+  const { id } = req.params;
+  const { firstName, lastName, phone, image } = req.body;
+
+  try {
+    let sqlQuery = "UPDATE users SET ";
+    let values = [];
+
+    if (firstName !== undefined) {
+      sqlQuery += "firstName = ?,";
+      values.push(firstName);
+    }
+    if (lastName !== undefined) {
+      sqlQuery += "lastName = ?,";
+      values.push(lastName);
+    }
+    if (phone !== undefined) {
+      sqlQuery += "phone = ?,";
+      values.push(phone);
+    }
+    if (image !== undefined) {
+      sqlQuery += "image = ?,";
+      values.push(image);
+    }
+
+    sqlQuery = sqlQuery.slice(0, -1) + " WHERE id = ?";
+    values.push(id);
+    console.log(sqlQuery, values)
+
+    const [result] = (await pool.query(sqlQuery, values)) as [ResultSetHeader, FieldPacket[]];
+
+    if (result.affectedRows ===  0) {
+      res.status(404).json({
+        message: "User not found",
+        success: false,
+        data: {},
+      });
+      return;
+    }
+    console.log(result)
+
+    res.status(200).json({
+      data: {
+        id,
+        firstName: firstName ?? null,
+        lastName: lastName ?? null,
+        phone: phone ?? null,
+        image: image ?? null,
+      },
+      success: true,
+      message: "User updated successfully",
+    });
+
+  } catch (error) {
+    console.log(error)
+  }
+}

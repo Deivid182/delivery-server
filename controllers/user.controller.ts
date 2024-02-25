@@ -157,7 +157,7 @@ export const updateUser = async (req: Request<{ id: string }, {}, UpdateUserInpu
     console.log(sqlQuery, values)
 
     const [result] = (await pool.query(sqlQuery, values)) as [ResultSetHeader, FieldPacket[]];
-
+    console.log(result)
     if (result.affectedRows ===  0) {
       res.status(404).json({
         message: "User not found",
@@ -166,11 +166,9 @@ export const updateUser = async (req: Request<{ id: string }, {}, UpdateUserInpu
       });
       return;
     }
-    console.log(result)
 
     res.status(200).json({
       data: {
-        id,
         firstName: firstName ?? null,
         lastName: lastName ?? null,
         phone: phone ?? null,
@@ -182,5 +180,10 @@ export const updateUser = async (req: Request<{ id: string }, {}, UpdateUserInpu
 
   } catch (error) {
     console.log(error)
+    res.status(500).json({
+      message: "Something went wrong while updating the the data",
+      success: false,
+      data: {},
+    });
   }
 }

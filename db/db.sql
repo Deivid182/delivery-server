@@ -57,3 +57,12 @@ INNER JOIN roles AS r ON uhr.roleId = r.id
 WHERE u.email = 'dave@gmail.com';
 
 INSERT INTO `user_has_roles` (`userId`, `roleId`, `createdAt`, `updatedAt`) VALUES ('1', '1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), ('1', '2', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+CREATE TABLE categories (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(40) NOT NULL,
+    description TEXT NOT NULL,
+    image VARCHAR(255) NULL,
+    createdAt TIMESTAMP (0) NOT NULL,
+    updatedAt TIMESTAMP (0) NOT NULL
+);

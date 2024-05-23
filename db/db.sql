@@ -2,7 +2,7 @@ CREATE DATABASE IF NOT EXISTS DELIVERY;
 
 USE DELIVERY;
 
-CREATE TABLE `delivery`.`users`(
+CREATE TABLE `delivery-app`.`users`(
     `id` BIGINT NOT NULL AUTO_INCREMENT,
     `email` VARCHAR(50) NOT NULL,
     `firstName` VARCHAR(50) NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE `delivery`.`users`(
 
 DESCRIBE users;
 
-CREATE TABLE roles (
+CREATE TABLE `delivery-app`.roles (
 	id BIGINT PRIMARY KEY AUTO_INCREMENT,
 	name VARCHAR(40) NOT NULL UNIQUE,
     image VARCHAR(255) NULL,
